@@ -1,4 +1,4 @@
-package prob01;
+package array.prob01;
 
 
 public class Ex1 {
