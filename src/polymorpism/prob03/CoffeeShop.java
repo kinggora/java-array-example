@@ -19,7 +19,8 @@ public class CoffeeShop {
 	public static void getSalesInfo(Beverage[] beverages) {
 		for (int i = 0; i < beverages.length; i++) {
 			Beverage b = beverages[i];
-			System.out.println(i + 1 + "번째 판매 음료는 " + b.getName() + "이며, 가격은 " + b.getPrice());
+			System.out.print(i + 1 + "번째 ");
+			b.print();
 		}
 	}
 

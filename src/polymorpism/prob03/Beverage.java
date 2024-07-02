@@ -11,7 +11,7 @@ public abstract class Beverage {
   public abstract void calcPrice();
 
   public void print() {
-
+    System.out.println("판매 음료는 " + name + "이며, 가격은 " + price);
   }
 
   public String getName() {
