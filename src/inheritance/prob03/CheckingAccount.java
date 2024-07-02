@@ -24,7 +24,4 @@ public class CheckingAccount extends Account{
     }
     System.out.println("현재잔액====>" + getBalance());
   }
-
-  public void calcRate() {
-  }
 }

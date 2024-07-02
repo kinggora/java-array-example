@@ -12,7 +12,6 @@ public abstract class Account {
 		this.balance = balance;
 		this.ownerName = ownerName;
 	}
-	public abstract void calcRate();
 	public void deposit(long money){
 		this.balance = this.balance + money;
 		
