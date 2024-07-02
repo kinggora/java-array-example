@@ -64,54 +64,47 @@ public class BankApplication {
   private void createAccount(Account account) {
     if(isFull()) {
       System.out.println("생성할 수 있는 계좌 수를 초과했습니다.");
+    } else if(isDuplicateAccount(account)) {
+      System.out.println("이미 동일한 계좌번호가 존재합니다.");
+    } else {
+      accounts[accLength] = account;
+      accLength++;
+      System.out.println("결과: 계좌가 생성되었습니다.");
     }
-    for(int i = 0; i < accLength; i++) {
-      if(account.getAccNum().equals(accounts[i].getAccNum())) {
-        System.out.println("이미 동일한 계좌번호가 존재합니다.");
-        return;
-      }
-    }
-    accounts[accLength] = account;
-    accLength++;
-    System.out.println("결과: 계좌가 생성되었습니다.");
   }
 
   private void printAccounts() {
     if(accLength == 0) {
       System.out.println("계좌가 존재하지 않습니다.");
-      return;
-    }
-    for (int i = 0; i < accLength; i++) {
-      Account acc = accounts[i];
-      System.out.println(acc.getAccNum() + "\t" + acc.getHolderName() + "\t" + acc.getBalance());
+    } else {
+      for (int i = 0; i < accLength; i++) {
+        Account acc = accounts[i];
+        System.out.println(acc.getAccNum() + "\t" + acc.getHolderName() + "\t" + acc.getBalance());
+      }
     }
   }
 
   private void deposit(String accNum, int balance) {
-    for(int i = 0; i < accLength; i++) {
-      Account account = accounts[i];
-      if(accNum.equals(account.getAccNum())) {
-        account.deposit(balance);
-        return;
-      }
+    Account account = findAccountByAccNum(accNum);
+    if (account == null) {
+      System.out.println("존재하지 않는 계좌번호 입니다.");
+    } else {
+      account.deposit(balance);
     }
-    System.out.println("존재하지 않는 계좌번호 입니다.");
+
   }
 
   private void withdraw(String accNum, int balance) {
-    for(int i = 0; i < accLength; i++) {
-      Account account = accounts[i];
-      if(accNum.equals(account.getAccNum())) {
-        boolean result = account.withdraw(balance);
-        if(result) {
-          System.out.println("결과: 출금이 성공되었습니다.");
-        } else {
-          System.out.println("결과: 잔고가 부족하여 출금 실패하였습니다.");
-        }
-        return;
-      }
+    Account account = findAccountByAccNum(accNum);
+    if (account == null) {
+      System.out.println("존재하지 않는 계좌번호 입니다.");
+      return;
     }
-    System.out.println("존재하지 않는 계좌번호 입니다.");
+    if(account.withdraw(balance)) {
+      System.out.println("결과: 출금이 성공되었습니다.");
+    } else {
+      System.out.println("결과: 잔고가 부족하여 출금 실패하였습니다.");
+    }
   }
 
 
@@ -120,8 +113,8 @@ public class BankApplication {
     switch (menu) {
       case "1" -> System.out.println("계좌생성");
       case "2" -> System.out.println("계좌목록");
-      case "3" -> System.out.println("예금");
-      case "4" -> System.out.println("출금");
+      case "3" -> System.out.println(" 예 금");
+      case "4" -> System.out.println(" 출 금");
     }
     System.out.println("---------");
   }
@@ -134,6 +127,24 @@ public class BankApplication {
 
   private boolean isFull() {
     return accounts.length == accLength;
+  }
+
+  private boolean isDuplicateAccount(Account account) {
+    for(int i = 0; i < accLength; i++) {
+      if(account.getAccNum().equals(accounts[i].getAccNum())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private Account findAccountByAccNum(String accNum) {
+    for(int i = 0; i < accLength; i++) {
+      if(accNum.equals(accounts[i].getAccNum())) {
+        return accounts[i];
+      }
+    }
+    return null;
   }
 
   private boolean validateAccNum(String accNum) {
