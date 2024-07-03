@@ -1,4 +1,4 @@
-package polymorpism.prob03;
+package polymorphism.prob03;
 
 public abstract class Beverage {
   private String name;

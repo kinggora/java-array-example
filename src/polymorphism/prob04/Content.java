@@ -1,4 +1,4 @@
-package polymorpism.prob04;
+package polymorphism.prob04;
 
 public abstract class Content {
   private String title;

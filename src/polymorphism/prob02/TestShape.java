@@ -1,4 +1,4 @@
-package polymorpism.prob02;
+package polymorphism.prob02;
 
 
 public class TestShape {
