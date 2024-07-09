@@ -100,10 +100,11 @@ public class BankApplication {
       System.out.println("존재하지 않는 계좌번호 입니다.");
       return;
     }
-    if(account.withdraw(balance)) {
+    try {
+      account.withdraw(balance);
       System.out.println("결과: 출금이 성공되었습니다.");
-    } else {
-      System.out.println("결과: 잔고가 부족하여 출금 실패하였습니다.");
+    } catch (InsufficientException e) {
+      System.out.println("결과: 잔고가 부족하여 출금을 실패했습니다.");
     }
   }
 

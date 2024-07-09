@@ -28,12 +28,10 @@ public class Account {
     this.balance += balance;
   }
 
-  public boolean withdraw(int balance) {
+  public void withdraw(int balance) throws InsufficientException {
     if(this.balance < balance) {
-      return false;
-    } else {
-      this.balance -= balance;
-      return true;
+      throw new InsufficientException();
     }
+    this.balance -= balance;
   }
 }
