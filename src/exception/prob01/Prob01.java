@@ -12,13 +12,13 @@ public class Prob01 {
 			result = convert(str);
 			System.out.println("변환된 숫자는 " + result + " 입니다.");
 		} catch (IllegalArgumentException e) {
-			System.out.println("예외가 발생되었습니다. 문자열을 입력하지 않고 Enter 키를 누르셨습니다.");
+			System.out.println(e.getMessage());
 		}
 	}
 	
 	private static int convert(String str) {
 		if(str == null || str.isEmpty()) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("예외가 발생되었습니다. 문자열을 입력하지 않고 Enter 키를 누르셨습니다.");
 		}
 		return Integer.parseInt(str);
 	}
