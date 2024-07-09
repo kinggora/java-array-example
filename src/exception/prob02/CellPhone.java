@@ -20,9 +20,14 @@ public class CellPhone {
   }
 
   public void charge(int time) {
-    if (time < 0) {
-      throw new IllegalArgumentException("통화시간입력오류");
-    } else if(battery + time * 3 > 100) {
+    try {
+      if (time < 0) {
+        throw new IllegalArgumentException("통화시간입력오류");
+      }
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+    }
+    if(battery + time * 3 > 100) {
       battery = 100;
     } else {
       battery += time * 3;
