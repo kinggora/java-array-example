@@ -11,15 +11,11 @@ public class BoardExample {
 
   private static int bno = 0;
   private static final List<Board> boardList = new ArrayList<>();
-  private Scanner sc = new Scanner(System.in);
-  private static boolean exit = false;
-
+  private final Scanner sc = new Scanner(System.in);
 
   public static void main(String[] args) {
     BoardExample boardEx = new BoardExample();
-    while (!exit) {
-      boardEx.list();
-    }
+    boardEx.list();
   }
 
   private void list() {
@@ -42,13 +38,19 @@ public class BoardExample {
       case "1" -> create();
       case "2" -> read();
       case "3" -> clear();
-      case "4" -> exit();
-      default -> System.out.println("1~4 중에 입력해주세요.");
+      case "4" -> {
+        System.out.println("*** 프로그램 종료 ***");
+        return;
+      }
+      default -> {
+        System.out.println("1~4 중에 입력해주세요.");
+      }
     }
+    list();
   }
 
   private void create() {
-    System.out.println("[새 게시물 입력");
+    System.out.println("[새 게시물 입력]");
     System.out.print("제목: ");
     String title = sc.nextLine();
     System.out.print("내용: ");
@@ -64,7 +66,7 @@ public class BoardExample {
         Board board = new Board(++bno, title, content, writer, new Date());
         boardList.add(board);
       }
-      case "2" -> list();
+      case "2" -> {}
       default -> System.out.println("1,2 중에 입력해주세요.");
     }
   }
@@ -84,7 +86,6 @@ public class BoardExample {
     Board b = findBoard(findBno);
     if(b == null) {
       System.out.println("게시물이 존재하지 않습니다.");
-      list();
     } else {
       printBoardDetail(b);
       System.out.println("보조 메뉴: 1.Update | 2.Delete | 3.List");
@@ -93,13 +94,13 @@ public class BoardExample {
       switch (subMenu) {
         case "1" -> update(b);
         case "2" -> delete(b);
-        case "3" -> list();
+        case "3" -> {}
         default -> System.out.println("1~3 중에 입력해주세요.");
       }
     }
   }
 
-  private void update(Board b) {
+  private void update(Board board) {
     System.out.println("[수정 내용 입력]");
     System.out.print("제목: ");
     String title = sc.nextLine();
@@ -112,24 +113,16 @@ public class BoardExample {
     String menu = sc.nextLine();
     switch (menu) {
       case "1" -> {
-        b.updateBoard(title, content, writer);
-        list();
+        board.updateBoard(title, content, writer);
       }
-      case "2" -> list();
+      case "2" -> {}
       default -> System.out.println("1,2 중에 입력해주세요.");
     }
-
   }
 
   private void delete(Board b) {
     boardList.remove(b);
   }
-
-  private void exit() {
-    System.out.println("*** 프로그램 종료 ***");
-    exit = true;
-  }
-
 
   private void clear() {
     System.out.println("[게시물 전체 삭제]");
@@ -140,11 +133,8 @@ public class BoardExample {
     switch (menu) {
       case "1" -> {
         boardList.clear();
-        list();
       }
-      case "2" -> {
-        list();
-      }
+      case "2" -> {}
       default -> System.out.println("1,2 중에 입력해주세요.");
     }
   }
@@ -177,7 +167,6 @@ public class BoardExample {
   private String formatDate(Date date) {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
     return dateFormat.format(date);
-
   }
 
 
